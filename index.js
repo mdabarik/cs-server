@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const app = express()
@@ -8,6 +9,7 @@ const secret = 'veryveryverysecretamikawkebolbona';
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 
 
 
@@ -25,6 +27,23 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+
+    // middleware
+    // verify token
+    const geteman = (req, res, next) => {
+        const {token} = req.cookies;
+        // if client does not send token
+        if (!token) {
+            return res.status(401).send({message: "you are not authoried"});
+        }
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                return res.status(401).send({message: 'Unauthorized'}) ;
+            }
+            req.user = decoded;
+            next();
+        })
+    }
     
     // connect collection
     const serviceCollection = client.db('cs').collection('services');
@@ -34,8 +53,19 @@ async function run() {
         res.send(result);
     })
 
-    app.post('/api/v1/user/create-booking', async(req, res) => {
+    app.post('/api/v1/user/create-booking', geteman, async(req, res) => {
         const booking = req.body;
+        const result = await bookingCollection.insertOne(booking);
+        res.send(result)
+    })
+
+    app.get('/api/v1/user/booking', geteman, async(req, res) => {
+        const booking = req.body;
+        const {email} = req.query;
+        if (req.user?.email != email) {
+            res.status(403).send({message: 'Forbidden'});
+            return;
+        }
         const result = await bookingCollection.insertOne(booking);
         res.send(result)
     })
@@ -49,8 +79,13 @@ async function run() {
     app.post('/api/v1/auth/access-token', async(req, res) => {
         // creating token and send to client
         const user = req.body || { email: 'mdabarik@gmail.com' };
-        const token = jwt.sign(user, secret);
-        res.send(token);
+        const token = jwt.sign(user, secret, {expiresIn: '1h'});
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none' // different port
+        })
+        .send({success: true});
     })
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
