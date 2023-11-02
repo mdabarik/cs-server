@@ -10,8 +10,10 @@ const secret = 'veryveryverysecretamikawkebolbona';
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-
-
+app.use({
+    origin: 'http://localhost:5173',
+    credentials: true
+})
 
 
 const uri = "mongodb+srv://TechBarik:TechBarik@cluster0.waijmz7.mongodb.net/?retryWrites=true&w=majority";
@@ -66,8 +68,12 @@ async function run() {
             res.status(403).send({message: 'Forbidden'});
             return;
         }
-        const result = await bookingCollection.insertOne(booking);
-        res.send(result)
+        let query = {};
+        if (email) {
+            query.email = email;
+        }
+        const result = await bookingCollection.find(query).toArray();
+        res.send(result);
     })
 
     app.delete('/api/v1/user/cancel-booking/:bookingId', async(req, res) => {
