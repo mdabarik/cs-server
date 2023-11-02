@@ -24,7 +24,10 @@ async function run() {
 
     // connect collection
     const serviceCollection = client.db('cs').collection('services');
-    
+    app.get('/api/v1/services', async(req, res) => {
+        const result = await serviceCollection.find().toArray();
+        res.send(result);
+    })
 
 
 
@@ -43,13 +46,6 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send("hello world");
-})
-
-
-
-app.get('/api/v1/services', async(req, res) => {
-    const result = await serviceCollection.find().toArray();
-    res.send(result);
 })
 
 
