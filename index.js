@@ -3,6 +3,8 @@ const express = require('express');
 const app = express()
 const port = 5555;
 
+// middleware
+app.use(express.json());
 
 
 
@@ -21,14 +23,18 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     
-
     // connect collection
     const serviceCollection = client.db('cs').collection('services');
+    const bookingCollection = client.db('cs').collection('booking');
     app.get('/api/v1/services', async(req, res) => {
         const result = await serviceCollection.find().toArray();
         res.send(result);
     })
 
+    app.post('/api/v1/user/create-booking', async(req, res) => {
+        console.log(req.body);
+        res.send('hello')
+    })
 
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
