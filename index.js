@@ -1,7 +1,10 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const app = express()
 const port = 5555;
+
+const secret = 'veryveryverysecretamikawkebolbona';
 
 // middleware
 app.use(express.json());
@@ -32,10 +35,23 @@ async function run() {
     })
 
     app.post('/api/v1/user/create-booking', async(req, res) => {
-        console.log(req.body);
-        res.send('hello')
+        const booking = req.body;
+        const result = await bookingCollection.insertOne(booking);
+        res.send(result)
     })
 
+    app.delete('/api/v1/user/cancel-booking/:bookingId', async(req, res) => {
+        const id = req.params.bookingId;
+        const result = await bookingCollection.deleteOne({_id: new ObjectId(id)});
+        res.send(result);
+    })
+
+    app.post('/api/v1/auth/access-token', async(req, res) => {
+        // creating token and send to client
+        const user = req.body || { email: 'mdabarik@gmail.com' };
+        const token = jwt.sign(user, secret);
+        res.send(token);
+    })
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {}
