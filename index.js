@@ -21,10 +21,15 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     
+
+    // connect collection
+    const serviceCollection = client.db('cs').collection('services');
+    
+
+
+
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // execute always
-  }
+  } finally {}
 }
 run().catch(console.dir);
 
@@ -42,8 +47,9 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/api/v1/services', (req, res) => {
-    res.send('it is working');
+app.get('/api/v1/services', async(req, res) => {
+    const result = await serviceCollection.find().toArray();
+    res.send(result);
 })
 
 

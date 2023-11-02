@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Basic Cleaning Service",
+        "description": "Our basic cleaning service includes thorough cleaning of your home or office space. We focus on essential areas to provide a clean and fresh environment.",
+        "price": "$50",
+        "features": [
+            "Dusting and wiping surfaces",
+            "Vacuuming and mopping floors",
+            "Trash removal",
+            "Basic bathroom cleaning"
+        ]
+    },
+    {
+        "name": "Deep Cleaning Package",
+        "description": "Our deep cleaning package offers a comprehensive cleaning experience. We pay attention to every detail to ensure your space is spotless and hygienic.",
+        "price": "$100",
+        "features": [
+            "Detailed dusting and surface cleaning",
+            "Carpet and upholstery cleaning",
+            "Window and glass cleaning",
+            "Kitchen appliance cleaning",
+            "Sanitization of high-touch surfaces"
+        ]
+    },
+    {
+        "name": "Office Cleaning Service",
+        "description": "We specialize in providing professional cleaning services for offices and commercial spaces. A clean workspace promotes productivity and a positive work environment.",
+        "price": "$80",
+        "features": [
+            "Workstation cleaning",
+            "Floor polishing",
+            "Electronic equipment cleaning",
+            "Restroom sanitization",
+            "Trash disposal and recycling"
+        ]
+    },
+    {
+        "name": "Eco-Friendly Cleaning",
+        "description": "Our eco-friendly cleaning service uses environmentally safe products and methods. Experience a clean home while contributing to a greener planet.",
+        "price": "$60",
+        "features": [
+            "Use of eco-friendly cleaning products",
+            "Recycling assistance",
+            "Energy-efficient cleaning equipment",
+            "Safe for pets and children"
+        ]
+    },
+    {
+        "name": "Move-In/Move-Out Cleaning",
+        "description": "Moving can be stressful. Let us handle the cleaning! Our move-in/move-out cleaning service ensures your new or old place is immaculate and ready for the next chapter.",
+        "price": "$120",
+        "features": [
+            "Deep cleaning of all rooms",
+            "Cabinet and closet cleaning",
+            "Appliance cleaning",
+            "Fixture and hardware polishing",
+            "Garage and basement cleaning"
+        ]
+    },
+    {
+        "name": "Weekly Home Cleaning",
+        "description": "Enjoy a consistently clean home with our weekly cleaning service. Our experienced cleaners will maintain the cleanliness of your home, allowing you to focus on what matters most.",
+        "price": "$70",
+        "features": [
+            "Regular dusting and surface cleaning",
+            "Bathroom and kitchen cleaning",
+            "Changing bed linens",
+            "Vacuuming and mopping",
+            "Customizable cleaning checklist"
+        ]
+    }
+]
