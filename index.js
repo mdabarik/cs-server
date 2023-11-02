@@ -10,10 +10,10 @@ const secret = 'veryveryverysecretamikawkebolbona';
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use({
+app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
-})
+}))
 
 
 const uri = "mongodb+srv://TechBarik:TechBarik@cluster0.waijmz7.mongodb.net/?retryWrites=true&w=majority";
